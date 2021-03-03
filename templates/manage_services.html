@@ -11,17 +11,14 @@
 
 	<title>Voice AI</title>
 
-	<!-- Custom fonts for this template -->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
+	<!-- Custom fonts for this template-->
+	<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link
+		href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+		rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
-  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<!-- Custom styles for this template-->
+	<link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -45,7 +42,7 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item active">
+			<li class="nav-item">
 				<a class="nav-link" href="dashboard.html">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Tổng quan</span></a>
@@ -84,7 +81,7 @@
 					<span>Quản lý Tags</span></a>
 			</li>
 
-			<li class="nav-item">
+			<li class="nav-item active">
 				<a class="nav-link" href="manage_services.html">
 					<i class="fa fa-address-card"></i>
 					<span>Quản lý gói cước</span></a>
@@ -156,7 +153,7 @@
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
 								aria-haspopup="true" aria-expanded="false">
 								<span class="mr-2 d-none d-lg-inline text-gray-600 small">ThuanMT</span>
-								<img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+								<img class="img-profile rounded-circle" src="/static/img/undraw_profile.svg">
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -186,26 +183,33 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
-
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Quản lý Tags</h1>
+					<h1 class="h3 mb-2 text-gray-800">Quản lý gói cước</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">Danh sách Tags</h6>
-							<div class="my-2"></div>
-						</div>
+              <h6 class="m-0 font-weight-bold text-primary">Danh sách gói cước</h6>
+              <div class="my-2"></div>
+              <a href="service_add.html" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                  <i class="fa fa-plus"></i>
+                </span>
+                <span class="text">Thêm mới</span>
+              </a>
+            </div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
-											<th>ID người dùng</th>
+											<th>ID</th>
 											<th>Tên</th>
 											<th>Mô tả</th>
+											<th>Số file tối đa</th>
+											<th>Thời gian tối đa mỗi file (s)</th>
 											<th>Ngày tạo</th>
 											<th>Thao tác</th>
 										</tr>
@@ -215,6 +219,8 @@
 											<th>ID người dùng</th>
 											<th>Tên</th>
 											<th>Mô tả</th>
+											<th>Số file tối đa</th>
+											<th>Thời gian tối đa mỗi file (s)</th>
 											<th>Ngày tạo</th>
 											<th>Thao tác</th>
 										</tr>
@@ -222,82 +228,50 @@
 									<tbody>
 										<tr>
 											<td><a href="">20130201</a></td>
-											<td><a href="">Jennifer Acosta</a></td>
+											<td><a href="">Trial</a></td>
 											<td>Edinburgh</td>
+											<td>10</td>
+											<td>120</td>
 											<td>2021/01/01</td>
 											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
+												<a href="">Sửa</a> |
+												<a href="">Xoá</a>
 											</td>
 										</tr>
 										<tr>
 											<td><a href="">20111206</a></td>
-											<td><a href="#">Cara Stevens</a></td>
+											<td><a href="#">VIP1</a></td>
 											<td>New York</td>
+											<td>20</td>
+											<td>120</td>
 											<td>2021/01/02</td>
 											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
+												<a href="">Sửa</a> |
+												<a href="">Xoá</a>
 											</td>
 										</tr>
 										<tr>
 											<td><a href="">20110321</a></td>
-											<td><a href="">Hermione Butler</a></td>
+											<td><a href="">VIP2</a></td>
 											<td>London</td>
+											<td>30</td>
+											<td>120</td>
 											<td>2021/01/03</td>
 											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
+												<a href="">Sửa</a> |
+												<a href="">Xoá</a>
 											</td>
 										</tr>
 										<tr>
 											<td><a href="">20090227</a></td>
-											<td><a href="">Lael Greer</a></td>
+											<td><a href="">VIP3</a></td>
 											<td>London</td>
+											<td>9999</td>
+											<td>999999</td>
 											<td>2021/01/04</td>
 											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="">20100714</a></td>
-											<td><a href="">Jonas Alexander</a></td>
-											<td>San Francisco</td>
-											<td>2021/01/05</td>
-											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="">20081113</a></td>
-											<td><a href="">Shad Decker</a></td>
-											<td>Edinburgh</td>
-											<td>2021/01/06</td>
-											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="">20110627</a></td>
-											<td><a href="">Michael Bruce</a></td>
-											<td>Singapore</td>
-											<td>2021/01/07</td>
-											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="">20110125</a></td>
-											<td><a href="">Donna Snider</a></td>
-											<td>New York</td>
-											<td>2021/01/08</td>
-											<td>
-												<a href="voice_id_edit.html">Sửa</a> |
-												<a href="voice_id_delete.html">Xoá</a>
+												<a href="">Sửa</a> |
+												<a href="">Xoá</a>
 											</td>
 										</tr>
 
@@ -355,21 +329,14 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/static/vendor/jquery/jquery.min.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="js/demo/datatables-demo.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="/static/js/sb-admin-2.min.js"></script>
 
 </body>
 
