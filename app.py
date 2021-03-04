@@ -44,7 +44,10 @@ def before_request():
 
 @app.route('/', methods=['GET', 'POST'])
 def index2():
-    return redirect('/login')
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('dashboard.html', user_name=session['user_name'])
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -93,27 +96,27 @@ def index():
 
 @app.route('/manage_clients')
 def manage_clients():
-    return render_template('manage_clients.html')
+    return render_template('manage_clients.html', user_name=session['user_name'])
 
 
 @app.route('/manage_services')
 def manage_services():
-    return render_template('manage_services.html')
+    return render_template('manage_services.html', user_name=session['user_name'])
 
 
 @app.route('/manage_speech_to_text_file')
 def manage_speech_to_text_file():
-    return render_template('manage_speech_to_text_file.html')
+    return render_template('manage_speech_to_text_file.html', user_name=session['user_name'])
 
 
 @app.route('/manage_tags')
 def manage_tags():
-    return render_template('manage_tags.html')
+    return render_template('manage_tags.html', user_name=session['user_name'])
 
 
 @app.route('/manage_voiceid')
 def manage_voiceid():
-    return render_template('manage_voiceid.html')
+    return render_template('manage_voiceid.html', user_name=session['user_name'])
 
 
 @app.route('/service_add')
@@ -130,15 +133,22 @@ def voice_id_delete():
 def voice_id_edit():
     return render_template('voice_id_edit.html')
 
+
 @app.route('/blank')
 def blank():
     return render_template('blank.html')
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html', user_name=session['user_name'])
 
 
 @app.route('/logout')
 def logout():
     session.pop('user_name', None)
     return redirect('/login')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
