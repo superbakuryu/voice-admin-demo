@@ -79,6 +79,7 @@
             opacity: 0.9;
           }
         </style>
+        
         <div class="form-group row">
           <div class="avatar-wrapper">
             <img class="profile-pic" src="/static/img/undraw_profile.svg" />
@@ -88,12 +89,11 @@
             <input class="file-upload" type="file" accept="image/*" />
           </div>
         </div>
-
         <div class="form-group row">
           <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
             buộc)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" value="Shad Decker" required>
+            <input type="text" class="form-control" id="inputName" placeholder="Nhập họ tên ..." value="Shad Decker" required>
           </div>
         </div>
 
@@ -105,17 +105,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="inputPasswordOld" class="col-sm-2 col-form-label">Nhập password cũ(<font color="red">*
-            </font>
-            )</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" name="inputPasswordOld" id="inputPasswordOld" required>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">Nhập password mới(<font color="red">*
-            </font>
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
             <input type="password" class="form-control" name="inputPassword" id="inputPassword" required>
@@ -131,9 +121,9 @@
         </div>
 
         <div class="form-group row">
-          <label for="inputAddress" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
+          <label for="inputCompany" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputAddress" required>
+            <input type="text" class="form-control" id="inputCompany" required>
           </div>
         </div>
 
@@ -142,6 +132,22 @@
             )</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="inputPhoneNumber" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPlan" class="col-sm-2 col-form-label">Kế hoạch(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPlan" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputActiveStatus" class="col-sm-2 col-form-label">Trạng thái hoạt động(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputActiveStatus" placeholder="1: Kích hoạt, 0: Không kích hoạt" required>
           </div>
         </div>
 

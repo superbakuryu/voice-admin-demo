@@ -34,87 +34,18 @@
 						</tr>
 					</tfoot>
 					<tbody>
+						{%for tag in tags%}
 						<tr>
-							<td><a href="">20130201</a></td>
-							<td><a href="">Jennifer Acosta</a></td>
-							<td>Edinburgh</td>
-							<td>2021/01/01</td>
+							<td><a href="">{{tag.id_user}}</a></td>
+							<td><a href="">{{tag.name}}</a></td>
+							<td>{{tag.description}}</td>
+							<td>{{tag.update_at}}</td>
 							<td>
 								<a href="voice_id_edit">Sửa</a> |
 								<a href="voice_id_delete">Xoá</a>
 							</td>
 						</tr>
-						<tr>
-							<td><a href="">20111206</a></td>
-							<td><a href="#">Cara Stevens</a></td>
-							<td>New York</td>
-							<td>2021/01/02</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20110321</a></td>
-							<td><a href="">Hermione Butler</a></td>
-							<td>London</td>
-							<td>2021/01/03</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20090227</a></td>
-							<td><a href="">Lael Greer</a></td>
-							<td>London</td>
-							<td>2021/01/04</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20100714</a></td>
-							<td><a href="">Jonas Alexander</a></td>
-							<td>San Francisco</td>
-							<td>2021/01/05</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20081113</a></td>
-							<td><a href="">Shad Decker</a></td>
-							<td>Edinburgh</td>
-							<td>2021/01/06</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20110627</a></td>
-							<td><a href="">Michael Bruce</a></td>
-							<td>Singapore</td>
-							<td>2021/01/07</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20110125</a></td>
-							<td><a href="">Donna Snider</a></td>
-							<td>New York</td>
-							<td>2021/01/08</td>
-							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
-							</td>
-						</tr>
-
+						{%endfor%}
 					</tbody>
 				</table>
 			</div>

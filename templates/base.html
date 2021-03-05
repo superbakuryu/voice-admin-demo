@@ -200,7 +200,7 @@
                 aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm"
                       aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
@@ -312,7 +312,31 @@
 
   <!-- Page level custom scripts -->
   <script src="/static/js/demo/datatables-demo.js"></script>
+  <!-- Upload images scripts -->
+  <script>
+    $(document).ready(function () {
 
+      var readURL = function (input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            $('.profile-pic').attr('src', e.target.result);
+          }
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      $(".file-upload").on('change', function () {
+        readURL(this);
+      });
+
+      $(".upload-button").on('click', function () {
+        $(".file-upload").click();
+      });
+    });
+  </script>
 </body>
 
 </html>

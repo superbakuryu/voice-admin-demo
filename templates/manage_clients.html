@@ -50,183 +50,40 @@
             </tr>
           </tfoot>
           <tbody>
+            {% for client in clients %}
             <tr>
-              <td><a href="">20130201</a></td>
-              <td><a href="">Jennifer Acosta</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>JuniorJavascriptDeveloper@gmail.com</td>
-              <td>43</td>
-              <td>Nextify</td>
-              <td>Plan</td>
+              <td><a href="">{{ client.id }}</a></td>
+              <td><a href="">{{ client.name }}</a></td>
+              <td><img src="{{ client.avatar }}" width="60px"></td>
+              <td>{{ client.email }}</td>
+              <td>{{ client.phone }}</td>
+              <td>{{ client.company }}</td>
+              <td>{{ client.plan }}</td>
               <td>
+                {% if client.active == 1 %}
                 <center>
                   <label class="switch">
                     <input type="checkbox" checked>
                     <span class="slider round"></span>
                   </label>
                 </center>
-              </td>
-              <td>2021/01/01</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20111206</a></td>
-              <td><a href="#">Cara Stevens</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>Sales Assistant@gmail.com</td>
-              <td>46</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/02</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20110321</a></td>
-              <td><a href="">Hermione Butler</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>RegionalDirector@gmail.com</td>
-              <td>47</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/03</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20090227</a></td>
-              <td><a href="">Lael Greer</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>SystemsAdministrato@gmail.com</td>
-              <td>21</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/04</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20100714</a></td>
-              <td><a href="">Jonas Alexander</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>Developer@gmail.com</td>
-              <td>30</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/05</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20081113</a></td>
-              <td><a href="">Shad Decker</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>RegionalDirector@gmail.com</td>
-              <td>51</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/06</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20110627</a></td>
-              <td><a href="">Michael Bruce</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>JavascriptDeveloper@gmail.com</td>
-              <td>29</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
+                {% else %}
                 <center>
                   <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
                   </label>
                 </center>
-              </td>
-              <td>2021/01/07</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="">20110125</a></td>
-              <td><a href="">Donna Snider</a></td>
-              <td><img src="/static/img/undraw_profile.svg" width="60px"></td>
-              <td>CustomerSupport@gmail.com</td>
-              <td>27</td>
-              <td>Nextify</td>
-              <td>Plan</td>
-              <td>
-                <center>
-                  <label class="switch">
-                    <input type="checkbox">
-                    <span class="slider round"></span>
-                  </label>
-                </center>
-              </td>
-              <td>2021/01/08</td>
-              <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
-              </td>
-            </tr>
+                {% endif %}
 
+              </td>
+              <td>{{ client.timestamp }}</td>
+              <td>
+                <a href="client_edit">Sửa</a> |
+                <a href="client_delete">Xoá</a>
+              </td>
+            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

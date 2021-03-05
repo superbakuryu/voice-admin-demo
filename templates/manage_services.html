@@ -44,55 +44,20 @@
 						</tr>
 					</tfoot>
 					<tbody>
+						{%for service in services %}
 						<tr>
-							<td><a href="">20130201</a></td>
-							<td><a href="">Trial</a></td>
-							<td>Edinburgh</td>
-							<td>10</td>
-							<td>120</td>
-							<td>2021/01/01</td>
+							<td><a href="">{{service.id}}</a></td>
+							<td><a href="">{{service.name}}</a></td>
+							<td>{{service.description}}</td>
+							<td>{{service.max_files}}</td>
+							<td>{{service.max_time_per_file}}</td>
+							<td>{{service.update_at}}</td>
 							<td>
 								<a href="">Sửa</a> |
 								<a href="">Xoá</a>
 							</td>
 						</tr>
-						<tr>
-							<td><a href="">20111206</a></td>
-							<td><a href="#">VIP1</a></td>
-							<td>New York</td>
-							<td>20</td>
-							<td>120</td>
-							<td>2021/01/02</td>
-							<td>
-								<a href="">Sửa</a> |
-								<a href="">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20110321</a></td>
-							<td><a href="">VIP2</a></td>
-							<td>London</td>
-							<td>30</td>
-							<td>120</td>
-							<td>2021/01/03</td>
-							<td>
-								<a href="">Sửa</a> |
-								<a href="">Xoá</a>
-							</td>
-						</tr>
-						<tr>
-							<td><a href="">20090227</a></td>
-							<td><a href="">VIP3</a></td>
-							<td>London</td>
-							<td>9999</td>
-							<td>999999</td>
-							<td>2021/01/04</td>
-							<td>
-								<a href="">Sửa</a> |
-								<a href="">Xoá</a>
-							</td>
-						</tr>
-
+						{%endfor%}
 					</tbody>
 				</table>
 			</div>
