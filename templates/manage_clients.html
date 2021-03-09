@@ -52,7 +52,7 @@
           <tbody>
             {% for client in clients %}
             <tr>
-              <td><a href="">{{ client.id }}</a></td>
+              <td><a href="">{{ client._id|shorten_id }}</a></td>
               <td><a href="">{{ client.name }}</a></td>
               <td><img src="{{ client.avatar }}" width="60px"></td>
               <td>{{ client.email }}</td>
@@ -79,8 +79,8 @@
               </td>
               <td>{{ client.timestamp }}</td>
               <td>
-                <a href="client_edit">Sửa</a> |
-                <a href="client_delete">Xoá</a>
+                <a href="client_edit_{{ client._id }}">Sửa</a> |
+                <a href="client_delete_{{ client._id }}">Xoá</a>
               </td>
             </tr>
             {% endfor %}
@@ -91,4 +91,8 @@
   </div>
 
 </div>
+<script>
+  $document.re
+</script>
+
 {% endblock %}

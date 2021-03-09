@@ -12,7 +12,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Sửa khách hàng</h6>
     </div>
     <div class="card-body">
-      <form
+      <form method="POST" action="/client_edit"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
 
         <style>
@@ -93,14 +93,14 @@
           <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
             buộc)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="Nhập họ tên ..." value="Shad Decker" required>
+            <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Nhập họ tên ..." value="{{ client.name }}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputEmail" class="col-sm-2 col-form-label">Email(<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail" required>
+            <input type="email" class="form-control" name="inputEmail" value="{{ client.email }}" id="inputEmail" required>
           </div>
         </div>
 
@@ -123,7 +123,7 @@
         <div class="form-group row">
           <label for="inputCompany" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputCompany" required>
+            <input type="text" class="form-control" name="inputCompany" id="inputCompany" value="{{ client.company }}" required>
           </div>
         </div>
 
@@ -131,7 +131,7 @@
           <label for="inputPhoneNumber" class="col-sm-2 col-form-label">Số điện thoại(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputPhoneNumber" required>
+            <input type="text" class="form-control" name="inputPhoneNumber" id="inputPhoneNumber" value="{{ client.phone }}" required>
           </div>
         </div>
 
@@ -139,7 +139,7 @@
           <label for="inputPlan" class="col-sm-2 col-form-label">Kế hoạch(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputPlan" required>
+            <input type="text" class="form-control" name="inputPlan" id="inputPlan" value="{{ client.plan }}" required>
           </div>
         </div>
 
@@ -147,7 +147,7 @@
           <label for="inputActiveStatus" class="col-sm-2 col-form-label">Trạng thái hoạt động(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputActiveStatus" placeholder="1: Kích hoạt, 0: Không kích hoạt" required>
+            <input type="text" class="form-control" name="inputActiveStatus" id="inputActiveStatus"value="{{ client.active }}" placeholder="1: Kích hoạt, 0: Không kích hoạt" required>
           </div>
         </div>
 
