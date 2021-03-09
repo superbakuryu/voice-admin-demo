@@ -18,7 +18,7 @@
           Tên:
         </dt>
         <dd>
-          Shad Decker
+          {{ client.name }}
         </dd>
 
         <dt>
@@ -26,7 +26,7 @@
         </dt>
 
         <dd>
-          RegionalDirector@gmail.com
+          {{ client.email }}
         </dd>
 
         <dt>
@@ -34,35 +34,41 @@
         </dt>
 
         <dd>
-          51
+          {{ client.phone }}
         </dd>
         <dt>
           Công ty:
         </dt>
 
-        <dd>Nextify
+        <dd>
+          {{ client.company }}
         </dd>
         <dt>
           Kế hoạch:
         </dt>
 
-        <dd>Plan
+        <dd>
+          {{ client.plan }}
         </dd>
         <dt>
           Tạo lúc:
         </dt>
 
         <dd>
-          2021/01/01
+          {{ client.timestamp }}
         </dd>
       </dl>
+
       <h3>Bạn có chắc chắn muốn xoá ?</h3>
-      <a href="/remove_client_{{ client._id }}" class="btn btn-danger btn-icon-split">
+
+      <a href="/remove_client_{{ client._id }}" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
         <span class="icon text-white-50">
           <i class="fas fa-trash"></i>
         </span>
         <span class="text">Xoá</span>
       </a>
+
+
       <a href="manage_clients" class="btn btn-secondary btn-icon-split">
         <span class="icon text-white-50">
           <i class="fas fa-arrow-left"></i>
@@ -73,4 +79,23 @@
   </div>
 
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xoá</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Chọn "Đồng ý" bên dưới nếu bạn chắc chắn muốn xoá người dùng.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ bỏ</button>
+          <a class="btn btn-primary" href="/remove_client_{{ client._id }}">Đồng ý</a>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

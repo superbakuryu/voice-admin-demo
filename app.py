@@ -109,7 +109,6 @@ def client_delete(client_id):
 
     print(type(client_id))
     find_user = api.get_client_info(client_id)
-    mydb.clients.remove({'_id': ObjectId(client_id)})
     return render_template('client_delete.html', user_name=session['user_name'], client=find_user)
 
 
@@ -118,9 +117,42 @@ def client_edit(client_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    print(client_id)
-    find_user = api.get_client_info(client_id)
-    return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputEmail = request.form['inputEmail']
+        inputPassword = request.form['inputPassword']
+        inputCompany = request.form['inputCompany']
+        inputPhoneNumber = request.form['inputPhoneNumber']
+        inputPlan = request.form['inputPlan']
+        inputActiveStatus = int(request.form['inputActiveStatus'])
+        now = datetime.today().strftime('%Y-%m-%d')
+        myquery = {"_id": client_id}
+        newvalues = {"$set": {'name': inputName,
+                              'avatar': '/static/img/undraw_profile.svg',
+                              'email': inputEmail,
+                              'password': inputPassword,
+                              'phone': inputPhoneNumber,
+                              'company': inputCompany,
+                              'plan': inputPlan,
+                              'active': inputActiveStatus,
+                              'timestamp': now}}
+
+        mydb.clients.update_one(myquery, newvalues)
+        return redirect(url_for('manage_clients'))
+
+    else:
+        print(client_id)
+        find_user = api.get_client_info(client_id)
+        return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
+
+# @app.route('/client_edit_<client_id>')
+# def client_edit(client_id):
+#     if not g.user:
+#         return redirect(url_for('login'))
+
+#     print(client_id)
+#     find_user = api.get_client_info(client_id)
+#     return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
 
 
 @app.route('/index')
