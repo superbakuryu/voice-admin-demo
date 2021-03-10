@@ -12,7 +12,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Sửa khách hàng</h6>
     </div>
     <div class="card-body">
-      <form method="POST" action="/client_edit"
+      <form method="POST" action="/client_edit_{{ client._id }}"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
 
         <style>
@@ -79,7 +79,7 @@
             opacity: 0.9;
           }
         </style>
-        
+
         <div class="form-group row">
           <div class="avatar-wrapper">
             <img class="profile-pic" src="/static/img/undraw_profile.svg" />
@@ -93,14 +93,16 @@
           <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
             buộc)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Nhập họ tên ..." value="{{ client.name }}" required>
+            <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Nhập họ tên ..."
+              value="{{ client.name }}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputEmail" class="col-sm-2 col-form-label">Email(<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="email" class="form-control" name="inputEmail" value="{{ client.email }}" id="inputEmail" required>
+            <input type="email" class="form-control" name="inputEmail" value="{{ client.email }}" id="inputEmail"
+              required>
           </div>
         </div>
 
@@ -108,7 +110,8 @@
           <label for="inputPassword" class="col-sm-2 col-form-label">Password(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control" name="inputPassword" id="inputPassword" required>
+            <input type="password" class="form-control" name="inputPassword" id="inputPassword"
+              value="{{ client.password }}" required>
           </div>
         </div>
 
@@ -116,14 +119,16 @@
           <label for="inputPassword2" class="col-sm-2 col-form-label">Nhập lại password(<font color="red">*
             </font>)</label>
           <div class="col-sm-10">
-            <input type="password" class="form-control" name="inputPassword2" id="inputPassword2" required>
+            <input type="password" class="form-control" name="inputPassword2" id="inputPassword2"
+              value="{{ client.password }}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputCompany" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputCompany" id="inputCompany" value="{{ client.company }}" required>
+            <input type="text" class="form-control" name="inputCompany" id="inputCompany" value="{{ client.company }}"
+              required>
           </div>
         </div>
 
@@ -131,7 +136,8 @@
           <label for="inputPhoneNumber" class="col-sm-2 col-form-label">Số điện thoại(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputPhoneNumber" id="inputPhoneNumber" value="{{ client.phone }}" required>
+            <input type="text" class="form-control" name="inputPhoneNumber" id="inputPhoneNumber"
+              value="{{ client.phone }}" required>
           </div>
         </div>
 
@@ -147,7 +153,19 @@
           <label for="inputActiveStatus" class="col-sm-2 col-form-label">Trạng thái hoạt động(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" name="inputActiveStatus" id="inputActiveStatus"value="{{ client.active }}" placeholder="1: Kích hoạt, 0: Không kích hoạt" required>
+            <!-- <input type="text" class="form-control" name="inputActiveStatus" id="inputActiveStatus"
+              value="{{ client.active }}" placeholder="1: Kích hoạt, 0: Không kích hoạt" required> -->
+            {% if client.active == 1 %}
+            <label class="switch">
+              <input type="checkbox" name="inputActiveStatus" checked>
+              <span class="slider round"></span>
+            </label>
+            {% else %}
+            <label class="switch">
+              <input type="checkbox" name="inputActiveStatus">
+              <span class="slider round"></span>
+            </label>
+            {% endif %}
           </div>
         </div>
 

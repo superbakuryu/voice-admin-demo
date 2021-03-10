@@ -91,7 +91,8 @@
           <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
             buộc)</label>
           <div class="col-sm-10">
-            <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Nhập họ tên ..." required>
+            <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Nhập họ tên ..."
+              required>
           </div>
         </div>
 
@@ -106,7 +107,8 @@
           <label for="inputPassword" class="col-sm-2 col-form-label">Password(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="password" name="inputPassword" class="form-control" name="inputPassword" id="inputPassword" required>
+            <input type="password" name="inputPassword" class="form-control" name="inputPassword" id="inputPassword"
+              required>
           </div>
         </div>
 
@@ -133,6 +135,12 @@
           </div>
         </div>
 
+        <!-- <div id="AlertBox" class="form-group row" style="display: none;">
+          <div class="alert alert-success">
+            Số điện thoại không hợp lệ
+          </div>
+        </div> -->
+        
         <div class="form-group row">
           <label for="inputPlan" class="col-sm-2 col-form-label">Kế hoạch(<font color="red">*</font>
             )</label>
@@ -145,13 +153,16 @@
           <label for="inputActiveStatus" class="col-sm-2 col-form-label">Trạng thái hoạt động(<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="text" name="inputActiveStatus" class="form-control" id="inputActiveStatus" required>
+            <label class="switch">
+              <input type="checkbox" name="inputActiveStatus" checked>
+              <span class="slider round"></span>
+            </label>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Thêm</button>
+            <button type="submit" id="addBtn" class="btn btn-primary">Thêm</button>
             <a href="manage_clients" class="btn btn-secondary btn-icon-split">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left"></i>
@@ -165,4 +176,61 @@
   </div>
 
 </div>
+
+<!-- Validate Phone -->
+<!-- <script src="/static/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    function formValidate() {
+      var regExp = /^(0[1-9][0-9]{8}|84[1-9][0-9]{8}|1[89]00[0-9]{4})$/;
+      var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
+      if (regExp.test(inputPhoneNumber))
+        return true;
+      else
+        return false;
+    };
+    var addBtn = document.getElementById('addBtn');
+
+    addBtn.addEventListener('click', function (e) {
+      console.log("1111111111");
+      console.log(formValidate());
+      if (formValidate() == false) {
+        // document.getElementById("fff").innerHTML = "Số điện thoại không hợp lệ";
+        $('#AlertBox').show();
+        $('#AlertBox').delay(1000).slideUp(500);
+        // $('#AlertBox').addClass('d-none');
+        e.preventDefault();
+      }
+    }, true);
+
+  });
+</script> -->
+
 {% endblock %}
+
+<!-- <script type="text/javascript">
+  // $(document).ready(function () {
+
+  // })
+  function formValidate() {
+    var regExp = /^(0[1-9][0-9]{8}|84[1-9][0-9]{8}|1[89]00[0-9]{4})$/;
+    var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
+    if (regExp.test(inputPhoneNumber))
+      return true;
+    else
+      return false;
+  }
+  var addBtn = document.getElementById('addBtn');
+  function check() {
+    addBtn.addEventListener('click', function (e) {
+      if (formValidate() == false) {
+        // document.getElementById("fff").innerHTML = "Số điện thoại không hợp lệ";
+        $('#AlertBox').removeClass('d-none');
+        $('#AlertBox').delay(1000).slideUp(500);
+        e.preventDefault();
+      }
+    }, false);
+  }
+  check();
+</script> -->

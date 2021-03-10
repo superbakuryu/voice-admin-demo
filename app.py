@@ -81,7 +81,7 @@ def client_add():
         inputCompany = request.form['inputCompany']
         inputPhoneNumber = request.form['inputPhoneNumber']
         inputPlan = request.form['inputPlan']
-        inputActiveStatus = int(request.form['inputActiveStatus'])
+        inputActiveStatus = (request.form.getlist('inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
         insert_data = {
             'name': inputName,
@@ -107,12 +107,11 @@ def client_delete(client_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    print(type(client_id))
     find_user = api.get_client_info(client_id)
     return render_template('client_delete.html', user_name=session['user_name'], client=find_user)
 
 
-@app.route('/client_edit_<client_id>')
+@app.route('/client_edit_<client_id>', methods=['GET', 'POST'])
 def client_edit(client_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -124,9 +123,11 @@ def client_edit(client_id):
         inputCompany = request.form['inputCompany']
         inputPhoneNumber = request.form['inputPhoneNumber']
         inputPlan = request.form['inputPlan']
-        inputActiveStatus = int(request.form['inputActiveStatus'])
+        inputActiveStatus = (request.form.getlist('inputActiveStatus')) and 1 or 0
+        print(inputActiveStatus)
         now = datetime.today().strftime('%Y-%m-%d')
-        myquery = {"_id": client_id}
+
+        myquery = {"_id": ObjectId(client_id)}
         newvalues = {"$set": {'name': inputName,
                               'avatar': '/static/img/undraw_profile.svg',
                               'email': inputEmail,
@@ -137,22 +138,13 @@ def client_edit(client_id):
                               'active': inputActiveStatus,
                               'timestamp': now}}
 
-        mydb.clients.update_one(myquery, newvalues)
+        mydb.clients.update(myquery, newvalues)
+
         return redirect(url_for('manage_clients'))
 
     else:
-        print(client_id)
         find_user = api.get_client_info(client_id)
         return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
-
-# @app.route('/client_edit_<client_id>')
-# def client_edit(client_id):
-#     if not g.user:
-#         return redirect(url_for('login'))
-
-#     print(client_id)
-#     find_user = api.get_client_info(client_id)
-#     return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
 
 
 @app.route('/index')
@@ -237,7 +229,6 @@ def blank():
 
 @app.route('/remove_client_<client_id>')
 def remove_client(client_id):
-    # print(type(client_id))
     find_user = api.get_client_info(client_id)
     mydb.clients.remove({'_id': ObjectId(client_id)})
     return redirect(url_for('manage_clients'))
