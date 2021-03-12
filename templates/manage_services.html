@@ -46,15 +46,15 @@
 					<tbody>
 						{%for service in services %}
 						<tr>
-							<td><a href="">{{service.id}}</a></td>
+							<td><a href="">{{ service._id|shorten_id }}</a></td>
 							<td><a href="">{{service.name}}</a></td>
 							<td>{{service.description}}</td>
 							<td>{{service.max_files}}</td>
 							<td>{{service.max_time_per_file}}</td>
 							<td>{{service.update_at}}</td>
 							<td>
-								<a href="">Sửa</a> |
-								<a href="">Xoá</a>
+								<a href="service_edit_{{ service._id }}">Sửa</a> |
+								<a href="service_delete_{{ service._id }}">Xoá</a>
 							</td>
 						</tr>
 						{%endfor%}

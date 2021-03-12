@@ -9,10 +9,10 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Thêm gói cước</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Sửa gói cước</h6>
     </div>
     <div class="card-body">
-      <form method="POST" action="/service_add"
+      <form method="POST" action="/service_edit_{{ service._id }}"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
 
         <div class="form-group row">
@@ -20,14 +20,15 @@
             buộc)</label>
           <div class="col-sm-10">
             <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Nhập tên gói cước ..."
-              required>
+              value="{{ service.name }}" required>
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputDescription" class="col-sm-2 col-form-label">Mô tả (<font color="red">* </font>)</label>
           <div class="col-sm-10">
-            <input type="text" name="inputDescription" class="form-control" id="inputDescription">
+            <input type="text" name="inputDescription" class="form-control" id="inputDescription"
+              value="{{ service.description }}">
           </div>
         </div>
 
@@ -35,7 +36,7 @@
           <label for="inputMaxFiles" class="col-sm-2 col-form-label">Số file tối đa (<font color="red">*</font>
             )</label>
           <div class="col-sm-10">
-            <input type="number" name="inputMaxFiles" class="form-control" id="inputMaxFiles" required>
+            <input type="text" name="inputMaxFiles" class="form-control" id="inputMaxFiles" value="{{ service.max_files }}" required>
           </div>
         </div>
 
@@ -44,7 +45,7 @@
               *</font>
             )</label>
           <div class="col-sm-10">
-            <input type="number" name="inputMaxTimePerFile" class="form-control" id="inputMaxTimePerFile" required>
+            <input type="text" name="inputMaxTimePerFile" class="form-control" id="inputMaxTimePerFile" value="{{ service.max_time_per_file }}" required>
           </div>
         </div>
 

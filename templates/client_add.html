@@ -14,70 +14,7 @@
     <div class="card-body">
       <form method="POST" action="/client_add"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
-        <style>
-          .avatar-wrapper {
-            position: relative;
-            height: 200px;
-            width: 200px;
-            margin: 50px auto;
-            border-radius: 50%;
-            overflow: hidden;
-            box-shadow: 1px 1px 15px -5px black;
-            transition: all 0.3s ease;
-          }
-
-          .avatar-wrapper:hover {
-            transform: scale(1.05);
-            cursor: pointer;
-          }
-
-          .avatar-wrapper:hover .profile-pic {
-            opacity: 0.5;
-          }
-
-          .avatar-wrapper .profile-pic {
-            height: 100%;
-            width: 100%;
-            transition: all 0.3s ease;
-          }
-
-          .avatar-wrapper .profile-pic:after {
-            font-family: FontAwesome;
-            content: "";
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            font-size: 190px;
-            background: #ecf0f1;
-            color: #34495e;
-            text-align: center;
-          }
-
-          .avatar-wrapper .upload-button {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-          }
-
-          .avatar-wrapper .upload-button .fa-arrow-circle-up {
-            position: absolute;
-            font-size: 234px;
-            top: -17px;
-            left: -17px;
-            text-align: center;
-            opacity: 0;
-            transition: all 0.3s ease;
-            color: #34495e;
-          }
-
-          .avatar-wrapper .upload-button:hover .fa-arrow-circle-up {
-            opacity: 0.9;
-          }
-        </style>
+        <link rel="stylesheet" href="/static/css/custom.css">
         <div class="form-group row">
           <div class="avatar-wrapper">
             <img class="profile-pic" src="/static/img/undraw_profile.svg" />
@@ -140,7 +77,7 @@
             Số điện thoại không hợp lệ
           </div>
         </div> -->
-        
+
         <div class="form-group row">
           <label for="inputPlan" class="col-sm-2 col-form-label">Kế hoạch(<font color="red">*</font>
             )</label>
@@ -177,60 +114,12 @@
 
 </div>
 
-<!-- Validate Phone -->
-<!-- <script src="/static/vendor/jquery/jquery.min.js"></script>
-<script type="text/javascript">
-
-  $(document).ready(function () {
-    function formValidate() {
-      var regExp = /^(0[1-9][0-9]{8}|84[1-9][0-9]{8}|1[89]00[0-9]{4})$/;
-      var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
-      if (regExp.test(inputPhoneNumber))
-        return true;
-      else
-        return false;
-    };
-    var addBtn = document.getElementById('addBtn');
-
-    addBtn.addEventListener('click', function (e) {
-      console.log("1111111111");
-      console.log(formValidate());
-      if (formValidate() == false) {
-        // document.getElementById("fff").innerHTML = "Số điện thoại không hợp lệ";
-        $('#AlertBox').show();
-        $('#AlertBox').delay(1000).slideUp(500);
-        // $('#AlertBox').addClass('d-none');
-        e.preventDefault();
-      }
-    }, true);
-
-  });
-</script> -->
-
 {% endblock %}
 
-<!-- <script type="text/javascript">
-  // $(document).ready(function () {
-
-  // })
-  function formValidate() {
-    var regExp = /^(0[1-9][0-9]{8}|84[1-9][0-9]{8}|1[89]00[0-9]{4})$/;
-    var inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
-    if (regExp.test(inputPhoneNumber))
-      return true;
-    else
-      return false;
-  }
-  var addBtn = document.getElementById('addBtn');
-  function check() {
-    addBtn.addEventListener('click', function (e) {
-      if (formValidate() == false) {
-        // document.getElementById("fff").innerHTML = "Số điện thoại không hợp lệ";
-        $('#AlertBox').removeClass('d-none');
-        $('#AlertBox').delay(1000).slideUp(500);
-        e.preventDefault();
-      }
-    }, false);
-  }
-  check();
-</script> -->
+{% block script %}
+<script>
+  bootstrapValidate('#inputEmail', 'email:Email không hợp lệ')
+  bootstrapValidate('#inputPhoneNumber', 'numeric:Chỉ nhập số');
+  bootstrapValidate('#inputPhoneNumber', 'min:8:Tối thiểu 8 kí tự');
+</script>
+{% endblock %}

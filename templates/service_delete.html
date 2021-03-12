@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Quản lý gói cước</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Xoá gói cước</h6>
+    </div>
+    <div class="card-body">
+      <dl class="dl-horizontal">
+        <dt>
+          Tên gói cước:
+        </dt>
+        <dd>
+          {{ service.name }}
+        </dd>
+
+        <dt>
+          Mô tả:
+        </dt>
+
+        <dd>
+          {{ service.description }}
+        </dd>
+
+        <dt>
+          Số file tối đa:
+        </dt>
+
+        <dd>
+          {{ service.max_files }}
+        </dd>
+        <dt>
+          Thời gian tối đa mỗi file:
+        </dt>
+
+        <dd>
+          {{ service.max_time_per_file }}
+        </dd>
+        
+        <dt>
+          Tạo lúc:
+        </dt>
+
+        <dd>
+          {{ service.update_at }}
+        </dd>
+      </dl>
+
+      <h3>Bạn có chắc chắn muốn xoá ?</h3>
+
+      <a href="/remove_service_{{ service._id }}" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+        <span class="icon text-white-50">
+          <i class="fas fa-trash"></i>
+        </span>
+        <span class="text">Xoá</span>
+      </a>
+
+
+      <a href="manage_services" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Quay lại</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bạn có chắc chắn muốn xoá</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Chọn "Đồng ý" bên dưới nếu bạn chắc chắn muốn xoá người dùng.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ bỏ</button>
+          <a class="btn btn-primary" href="/remove_service_{{ service._id }}">Đồng ý</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

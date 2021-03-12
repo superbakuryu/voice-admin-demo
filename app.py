@@ -34,6 +34,8 @@ def before_request():
     if 'user_name' in session:
         if mydb.users.find_one({'username': session['user_name']}):
             g.user = mydb.users.find_one({'username': session['user_name']})
+        elif mydb.clients.find_one({'email': session['user_name']}):
+            g.user = mydb.clients.find_one({'email': session['user_name']})
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -54,19 +56,44 @@ def login():
 
         if mydb.users.find_one({'username': username, 'password': password}):
             session['user_name'] = username
+            session['role'] = 'super_admin'
             return redirect(url_for('dashboard'))
 
-        return render_template('login.html')
+        elif mydb.clients.find_one({'email': username, 'password': password}):
+            session['user_name'] = username
+            session['role'] = 'client'
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('login.html')
     else:
         return render_template('login.html')
 
 
-@app.route('/dashboard')
+@app.route('/index', methods=['GET'])
+def index():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('index.html', user_name=session['user_name'])
+
+
+@app.route('/dashboard', methods=['GET'])
 def dashboard():
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('dashboard.html', user_name=session['user_name'])
+    return render_template('dashboard.html', user_name=session['user_name'], role=session['role'])
+
+
+# CLIENT
+
+
+@app.route('/manage_clients', methods=['GET'])
+def manage_clients():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_clients.html', user_name=session['user_name'], role=session['role'], clients=mydb.clients.find())
 
 
 @app.route('/client_add', methods=['GET', 'POST'])
@@ -81,7 +108,8 @@ def client_add():
         inputCompany = request.form['inputCompany']
         inputPhoneNumber = request.form['inputPhoneNumber']
         inputPlan = request.form['inputPlan']
-        inputActiveStatus = (request.form.getlist('inputActiveStatus')) and 1 or 0
+        inputActiveStatus = (request.form.getlist(
+            'inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
         insert_data = {
             'name': inputName,
@@ -99,16 +127,7 @@ def client_add():
         return redirect(url_for('manage_clients'))
 
     else:
-        return render_template('client_add.html', user_name=session['user_name'], clients=mydb.clients.find())
-
-
-@app.route('/client_delete_<client_id>')
-def client_delete(client_id):
-    if not g.user:
-        return redirect(url_for('login'))
-
-    find_user = api.get_client_info(client_id)
-    return render_template('client_delete.html', user_name=session['user_name'], client=find_user)
+        return render_template('client_add.html', user_name=session['user_name'], role=session['role'], clients=mydb.clients.find())
 
 
 @app.route('/client_edit_<client_id>', methods=['GET', 'POST'])
@@ -123,8 +142,8 @@ def client_edit(client_id):
         inputCompany = request.form['inputCompany']
         inputPhoneNumber = request.form['inputPhoneNumber']
         inputPlan = request.form['inputPlan']
-        inputActiveStatus = (request.form.getlist('inputActiveStatus')) and 1 or 0
-        print(inputActiveStatus)
+        inputActiveStatus = (request.form.getlist(
+            'inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
 
         myquery = {"_id": ObjectId(client_id)}
@@ -144,102 +163,168 @@ def client_edit(client_id):
 
     else:
         find_user = api.get_client_info(client_id)
-        return render_template('client_edit.html', user_name=session['user_name'], client=find_user)
+        return render_template('client_edit.html', user_name=session['user_name'], role=session['role'], client=find_user)
 
 
-@app.route('/index')
-def index():
+@app.route('/client_delete_<client_id>', methods=['GET'])
+def client_delete(client_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('index.html', user_name=session['user_name'])
+    find_user = api.get_client_info(client_id)
+    return render_template('client_delete.html', user_name=session['user_name'], role=session['role'], client=find_user)
 
 
-@app.route('/manage_clients')
-def manage_clients():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('manage_clients.html', user_name=session['user_name'], clients=mydb.clients.find())
-
-
-@app.route('/manage_services')
-def manage_services():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('manage_services.html', user_name=session['user_name'], services=mydb.services.find())
-
-
-@app.route('/manage_speech_to_text_file')
-def manage_speech_to_text_file():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('manage_speech_to_text_file.html', user_name=session['user_name'], sttfiles=mydb.sttfiles.find())
-
-
-@app.route('/manage_tags')
-def manage_tags():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('manage_tags.html', user_name=session['user_name'], tags=mydb.tags.find())
-
-
-@app.route('/manage_voiceid')
-def manage_voiceid():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('manage_voiceid.html', user_name=session['user_name'], voiceids=mydb.voiceids.find())
-
-
-@app.route('/service_add')
-def service_add():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('service_add.html', user_name=session['user_name'])
-
-
-@app.route('/voice_id_delete')
-def voice_id_delete():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('voice_id_delete.html', user_name=session['user_name'])
-
-
-@app.route('/voice_id_edit')
-def voice_id_edit():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('voice_id_edit.html', user_name=session['user_name'])
-
-
-@app.route('/blank')
-def blank():
-    if not g.user:
-        return redirect(url_for('login'))
-
-    return render_template('blank.html', user_name=session['user_name'])
-
-
-@app.route('/remove_client_<client_id>')
+@app.route('/remove_client_<client_id>', methods=['GET'])
 def remove_client(client_id):
     find_user = api.get_client_info(client_id)
     mydb.clients.remove({'_id': ObjectId(client_id)})
     return redirect(url_for('manage_clients'))
 
 
-@app.route('/test')
+# SERVICE
+
+
+@app.route('/manage_services', methods=['GET'])
+def manage_services():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_services.html', user_name=session['user_name'], role=session['role'], services=mydb.services.find())
+
+
+@app.route('/service_add', methods=['GET', 'POST'])
+def service_add():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputDescription = request.form['inputDescription']
+        inputMaxFiles = int(request.form['inputMaxFiles'])
+        inputMaxTimePerFile = int(request.form['inputMaxTimePerFile'])
+        now = datetime.today().strftime('%Y-%m-%d')
+        insert_data = {
+            'name': inputName,
+            'description': inputDescription,
+            'max_files': inputMaxFiles,
+            'max_time_per_file': inputMaxTimePerFile,
+            'update_at': now
+        }
+
+        mydb.services.insert_one(insert_data)
+        return redirect(url_for('manage_services'))
+
+    else:
+        return render_template('service_add.html', user_name=session['user_name'], role=session['role'], services=mydb.services.find())
+
+
+@app.route('/service_edit_<service_id>', methods=['GET', 'POST'])
+def service_edit(service_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputDescription = request.form['inputDescription']
+        inputMaxFiles = int(request.form['inputMaxFiles'])
+        inputMaxTimePerFile = int(request.form['inputMaxTimePerFile'])
+        now = datetime.today().strftime('%Y-%m-%d')
+
+        myquery = {"_id": ObjectId(service_id)}
+        newvalues = {"$set": {'name': inputName,
+                              'description': inputDescription,
+                              'max_files': inputMaxFiles,
+                              'max_time_per_file': inputMaxTimePerFile,
+                              'update_at': now}}
+
+        mydb.services.update(myquery, newvalues)
+
+        return redirect(url_for('manage_services'))
+
+    else:
+        find_service = api.get_service_info(service_id)
+        return render_template('service_edit.html', user_name=session['user_name'], role=session['role'], service=find_service)
+
+
+@app.route('/service_delete_<service_id>', methods=['GET'])
+def service_delete(service_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    find_service = api.get_service_info(service_id)
+    return render_template('service_delete.html', user_name=session['user_name'], role=session['role'], service=find_service)
+
+
+@app.route('/remove_service_<service_id>', methods=['GET'])
+def remove_service(service_id):
+    find_user = api.get_service_info(service_id)
+    mydb.services.remove({'_id': ObjectId(service_id)})
+    return redirect(url_for('manage_services'))
+
+# SPEECH TO TEXT FILE
+
+
+@app.route('/manage_speech_to_text_file', methods=['GET'])
+def manage_speech_to_text_file():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_speech_to_text_file.html', user_name=session['user_name'], role=session['role'], sttfiles=mydb.sttfiles.find())
+
+
+# TAGS
+
+
+@app.route('/manage_tags', methods=['GET'])
+def manage_tags():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_tags.html', user_name=session['user_name'], role=session['role'], tags=mydb.tags.find())
+
+
+# VOICEID
+
+
+@app.route('/manage_voiceid', methods=['GET'])
+def manage_voiceid():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_voiceid.html', user_name=session['user_name'], role=session['role'], voiceids=mydb.voiceids.find())
+
+
+@app.route('/voice_id_delete', methods=['GET'])
+def voice_id_delete():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('voice_id_delete.html', user_name=session['user_name'], role=session['role'])
+
+
+@app.route('/voice_id_edit', methods=['GET'])
+def voice_id_edit():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('voice_id_edit.html', user_name=session['user_name'], role=session['role'])
+
+
+@app.route('/blank', methods=['GET'])
+def blank():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('blank.html', user_name=session['user_name'], role=session['role'])
+
+
+@app.route('/test', methods=['GET'])
 def test():
     return render_template('test.html')
 
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET'])
 def logout():
     session.pop('user_name', None)
     return redirect('/login')
