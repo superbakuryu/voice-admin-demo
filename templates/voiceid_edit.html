@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Quản lý Voice ID</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Sửa Voice ID</h6>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/voiceid_edit/{{ voiceid._id }}" enctype="multipart/form-data"
+        oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
+        <link rel="stylesheet" href="/static/css/custom.css">
+        <div class="form-group row">
+          <div class="avatar-wrapper">
+            <img class="profile-pic" src="{{ voiceid.avatar }}" />
+            <div class="upload-button">
+              <i class="fa fa-arrow-circle-up" title="Chọn ảnh" aria-hidden="true"></i>
+            </div>
+            <input class="file-upload" name="face_image" type="file" accept="image/*" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
+            buộc)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Nhập họ tên ..."
+              value="{{ voiceid.name }}" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputEmail" class="col-sm-2 col-form-label">Email(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" name="inputEmail" value="{{ voiceid.email }}" id="inputEmail"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPhoneNumber" class="col-sm-2 col-form-label">Số điện thoại(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputPhoneNumber" id="inputPhoneNumber"
+              value="{{ voiceid.phone }}" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputCompany" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputCompany" id="inputCompany" value="{{ voiceid.company }}"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputDepartment" class="col-sm-2 col-form-label">Phòng ban(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputDepartment" id="inputDepartment" value="{{ voiceid.department }}"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputTitle" class="col-sm-2 col-form-label">Tiêu đề(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputTitle" id="inputTitle" value="{{ voiceid.title }}"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputTags" class="col-sm-2 col-form-label">Tags(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="inputTags" id="inputTags" value="{{ voiceid.tags }}"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a href="/manage_voiceids" class="btn btn-secondary btn-icon-split">
+              <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+              </span>
+              <span class="text">Quay lại</span>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

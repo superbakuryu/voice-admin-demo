@@ -9,7 +9,9 @@ from flask import (
 )
 from bson.objectid import ObjectId
 import api
+import os
 from datetime import datetime
+from werkzeug.utils import secure_filename
 # now = datetime.today().strftime('%Y-%m-%d')
 
 # DATABASE
@@ -111,9 +113,16 @@ def client_add():
         inputActiveStatus = (request.form.getlist(
             'inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
+
+        target = '/static/img/'
+        filename = request.files['face_image']
+        inputAvatar = target + filename.filename
+        if inputAvatar == target:
+            inputAvatar = '/static/img/undraw_profile.svg'
+
         insert_data = {
             'name': inputName,
-            'avatar': '/static/img/undraw_profile.svg',
+            'avatar': inputAvatar,
             'email': inputEmail,
             'password': inputPassword,
             'phone': inputPhoneNumber,
@@ -130,7 +139,7 @@ def client_add():
         return render_template('client_add.html', user_name=session['user_name'], role=session['role'], clients=mydb.clients.find())
 
 
-@app.route('/client_edit_<client_id>', methods=['GET', 'POST'])
+@app.route('/client_edit/<client_id>', methods=['GET', 'POST'])
 def client_edit(client_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -146,9 +155,16 @@ def client_edit(client_id):
             'inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
 
+        find_user = api.get_client_info(client_id)
+        target = '/static/img/'
+        filename = request.files['face_image']
+        inputAvatar = target + filename.filename
+        if inputAvatar == target:
+            inputAvatar = find_user.get('avatar')
+
         myquery = {"_id": ObjectId(client_id)}
         newvalues = {"$set": {'name': inputName,
-                              'avatar': '/static/img/undraw_profile.svg',
+                              'avatar': inputAvatar,
                               'email': inputEmail,
                               'password': inputPassword,
                               'phone': inputPhoneNumber,
@@ -157,7 +173,7 @@ def client_edit(client_id):
                               'active': inputActiveStatus,
                               'timestamp': now}}
 
-        mydb.clients.update(myquery, newvalues)
+        mydb.clients.update_one(myquery, newvalues)
 
         return redirect(url_for('manage_clients'))
 
@@ -166,7 +182,7 @@ def client_edit(client_id):
         return render_template('client_edit.html', user_name=session['user_name'], role=session['role'], client=find_user)
 
 
-@app.route('/client_delete_<client_id>', methods=['GET'])
+@app.route('/client_delete/<client_id>', methods=['GET'])
 def client_delete(client_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -175,10 +191,10 @@ def client_delete(client_id):
     return render_template('client_delete.html', user_name=session['user_name'], role=session['role'], client=find_user)
 
 
-@app.route('/remove_client_<client_id>', methods=['GET'])
+@app.route('/remove_client/<client_id>', methods=['GET'])
 def remove_client(client_id):
     find_user = api.get_client_info(client_id)
-    mydb.clients.remove({'_id': ObjectId(client_id)})
+    mydb.clients.delete_one({'_id': ObjectId(client_id)})
     return redirect(url_for('manage_clients'))
 
 
@@ -219,7 +235,7 @@ def service_add():
         return render_template('service_add.html', user_name=session['user_name'], role=session['role'], services=mydb.services.find())
 
 
-@app.route('/service_edit_<service_id>', methods=['GET', 'POST'])
+@app.route('/service_edit/<service_id>', methods=['GET', 'POST'])
 def service_edit(service_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -247,7 +263,7 @@ def service_edit(service_id):
         return render_template('service_edit.html', user_name=session['user_name'], role=session['role'], service=find_service)
 
 
-@app.route('/service_delete_<service_id>', methods=['GET'])
+@app.route('/service_delete/<service_id>', methods=['GET'])
 def service_delete(service_id):
     if not g.user:
         return redirect(url_for('login'))
@@ -256,10 +272,10 @@ def service_delete(service_id):
     return render_template('service_delete.html', user_name=session['user_name'], role=session['role'], service=find_service)
 
 
-@app.route('/remove_service_<service_id>', methods=['GET'])
+@app.route('/remove_service/<service_id>', methods=['GET'])
 def remove_service(service_id):
     find_user = api.get_service_info(service_id)
-    mydb.services.remove({'_id': ObjectId(service_id)})
+    mydb.services.delete_one({'_id': ObjectId(service_id)})
     return redirect(url_for('manage_services'))
 
 # SPEECH TO TEXT FILE
@@ -287,28 +303,70 @@ def manage_tags():
 # VOICEID
 
 
-@app.route('/manage_voiceid', methods=['GET'])
-def manage_voiceid():
+@app.route('/manage_voiceids', methods=['GET'])
+def manage_voiceids():
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('manage_voiceid.html', user_name=session['user_name'], role=session['role'], voiceids=mydb.voiceids.find())
+    return render_template('manage_voiceids.html', user_name=session['user_name'], role=session['role'], voiceids=mydb.voiceids.find())
 
 
-@app.route('/voice_id_delete', methods=['GET'])
-def voice_id_delete():
+@app.route('/voiceid_edit/<voiceid_id>', methods=['GET', 'POST'])
+def voiceid_edit(voiceid_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('voice_id_delete.html', user_name=session['user_name'], role=session['role'])
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputEmail = request.form['inputEmail']
+        inputPhoneNumber = request.form['inputPhoneNumber']
+        inputCompany = request.form['inputCompany']
+        inputDepartment = request.form['inputDepartment']
+        inputTitle = request.form['inputTitle']
+        inputTags = request.form['inputTags']
+        now = datetime.today().strftime('%Y-%m-%d')
+
+        find_user = api.get_voiceid_info(voiceid_id)
+        target = '/static/img/'
+        filename = request.files['face_image']
+        inputAvatar = target + filename.filename
+        if inputAvatar == target:
+            inputAvatar = find_user.get('avatar')
+
+        myquery = {"_id": ObjectId(voiceid_id)}
+        newvalues = {"$set": {'name': inputName,
+                              'avatar': inputAvatar,
+                              'email': inputEmail,
+                              'phone': inputPhoneNumber,
+                              'company': inputCompany,
+                              'department': inputDepartment,
+                              'title': inputTitle,
+                              'tags': inputTags,
+                              'timestamp': now}}
+
+        mydb.voiceids.update(myquery, newvalues)
+
+        return redirect(url_for('manage_voiceids'))
+
+    else:
+        find_user = api.get_voiceid_info(voiceid_id)
+        return render_template('voiceid_edit.html', user_name=session['user_name'], role=session['role'], voiceid=find_user)
 
 
-@app.route('/voice_id_edit', methods=['GET'])
-def voice_id_edit():
+@app.route('/voiceid_delete/<voiceid_id>', methods=['GET'])
+def voiceid_delete(voiceid_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    return render_template('voice_id_edit.html', user_name=session['user_name'], role=session['role'])
+    find_voiceid = api.get_voiceid_info(voiceid_id)
+    return render_template('voiceid_delete.html', user_name=session['user_name'], role=session['role'], voiceid=find_voiceid)
+
+
+@app.route('/remove_voiceid/<voiceid_id>', methods=['GET'])
+def remove_voiceid(voiceid_id):
+    find_user = api.get_voiceid_info(voiceid_id)
+    mydb.voiceids.delete_one({'_id': ObjectId(voiceid_id)})
+    return redirect(url_for('manage_voiceids'))
 
 
 @app.route('/blank', methods=['GET'])

@@ -48,9 +48,9 @@
 					<tbody>
 						{% for voiceid in voiceids %}
 						<tr>
-							<td><a href="">{{voiceid.id}}</a></td>
+							<td><a href="">{{voiceid._id | shorten_id}}</a></td>
 							<td><a href="">{{voiceid.name}}</a></td>
-							<td><img src="{{voiceid.avatar}}" width="60px"></td>
+							<td><center><img src="{{voiceid.avatar}}" width="60px"></center></td>
 							<td>{{voiceid.email}}</td>
 							<td>{{voiceid.phone}}</td>
 							<td>{{voiceid.title}}</td>
@@ -59,8 +59,8 @@
 							<td>{{voiceid.department}}</td>
 							<td>{{voiceid.tags}}</td>
 							<td>
-								<a href="voice_id_edit">Sửa</a> |
-								<a href="voice_id_delete">Xoá</a>
+								<a href="/voiceid_edit/{{ voiceid._id }}">Sửa</a> |
+								<a href="/voiceid_delete/{{ voiceid._id }}">Xoá</a>
 							</td>
 						</tr>
 						{%endfor%}

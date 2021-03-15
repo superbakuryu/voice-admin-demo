@@ -12,16 +12,16 @@
       <h6 class="m-0 font-weight-bold text-primary">Sửa khách hàng</h6>
     </div>
     <div class="card-body">
-      <form method="POST" action="/client_edit_{{ client._id }}"
+      <form method="POST" action="/client_edit/{{ client._id }}" enctype="multipart/form-data"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
         <link rel="stylesheet" href="/static/css/custom.css">
         <div class="form-group row">
           <div class="avatar-wrapper">
-            <img class="profile-pic" src="/static/img/undraw_profile.svg" />
+            <img class="profile-pic" src="{{ client.avatar }}" />
             <div class="upload-button">
               <i class="fa fa-arrow-circle-up" title="Chọn ảnh" aria-hidden="true"></i>
             </div>
-            <input class="file-upload" type="file" accept="image/*" />
+            <input class="file-upload" name="face_image" type="file" accept="image/*" />
           </div>
         </div>
         <div class="form-group row">
@@ -107,7 +107,7 @@
         <div class="form-group row">
           <div class="col-sm-10">
             <button type="submit" class="btn btn-primary">Lưu</button>
-            <a href="manage_clients" class="btn btn-secondary btn-icon-split">
+            <a href="/manage_clients" class="btn btn-secondary btn-icon-split">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left"></i>
               </span>

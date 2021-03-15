@@ -12,7 +12,7 @@
       <h6 class="m-0 font-weight-bold text-primary">Sửa gói cước</h6>
     </div>
     <div class="card-body">
-      <form method="POST" action="/service_edit_{{ service._id }}"
+      <form method="POST" action="/service_edit/{{ service._id }}"
         oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
 
         <div class="form-group row">
@@ -52,7 +52,7 @@
         <div class="form-group row">
           <div class="col-sm-10">
             <button type="submit" id="addBtn" class="btn btn-primary">Thêm</button>
-            <a href="manage_services" class="btn btn-secondary btn-icon-split">
+            <a href="/manage_services" class="btn btn-secondary btn-icon-split">
               <span class="icon text-white-50">
                 <i class="fas fa-arrow-left"></i>
               </span>

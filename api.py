@@ -15,3 +15,9 @@ def get_service_info(service_id):
     service_id = ObjectId(service_id)
   
   return mydb.services.find_one({'_id': service_id})
+
+def get_voiceid_info(voiceid_id):
+  if not isinstance(voiceid_id, ObjectId):
+    voiceid_id = ObjectId(voiceid_id)
+  
+  return mydb.voiceids.find_one({'_id': voiceid_id})
