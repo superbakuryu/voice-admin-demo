@@ -28,6 +28,9 @@ app.secret_key = 'somesecretkeythatonlyishouldknow'
 def shorten_id(value):
     return abs(hash(value)) % (10 ** 8)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 @app.before_request
 def before_request():
