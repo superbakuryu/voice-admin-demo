@@ -155,12 +155,12 @@ def client_edit(client_id):
             'inputActiveStatus')) and 1 or 0
         now = datetime.today().strftime('%Y-%m-%d')
 
-        find_user = api.get_client_info(client_id)
+        find_by_id = api.get_client_info(client_id)
         target = '/static/img/'
         filename = request.files['face_image']
         inputAvatar = target + filename.filename
         if inputAvatar == target:
-            inputAvatar = find_user.get('avatar')
+            inputAvatar = find_by_id.get('avatar')
 
         myquery = {"_id": ObjectId(client_id)}
         newvalues = {"$set": {'name': inputName,
@@ -178,8 +178,8 @@ def client_edit(client_id):
         return redirect(url_for('manage_clients'))
 
     else:
-        find_user = api.get_client_info(client_id)
-        return render_template('client_edit.html', user_name=session['user_name'], role=session['role'], client=find_user)
+        find_by_id = api.get_client_info(client_id)
+        return render_template('client_edit.html', user_name=session['user_name'], role=session['role'], client=find_by_id)
 
 
 @app.route('/client_delete/<client_id>', methods=['GET'])
@@ -187,16 +187,126 @@ def client_delete(client_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    find_user = api.get_client_info(client_id)
-    return render_template('client_delete.html', user_name=session['user_name'], role=session['role'], client=find_user)
+    find_by_id = api.get_client_info(client_id)
+    return render_template('client_delete.html', user_name=session['user_name'], role=session['role'], client=find_by_id)
 
 
 @app.route('/remove_client/<client_id>', methods=['GET'])
 def remove_client(client_id):
-    find_user = api.get_client_info(client_id)
+    find_by_id = api.get_client_info(client_id)
     mydb.clients.delete_one({'_id': ObjectId(client_id)})
     return redirect(url_for('manage_clients'))
 
+# MERCHANT
+
+
+@app.route('/manage_merchants', methods=['GET'])
+def manage_merchants():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('manage_merchants.html', user_name=session['user_name'], role=session['role'], merchants=mydb.merchants.find())
+
+
+@app.route('/merchant_add', methods=['GET', 'POST'])
+def merchant_add():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputEmail = request.form['inputEmail']
+        inputPassword = request.form['inputPassword']
+        inputCompany = request.form['inputCompany']
+        inputPhoneNumber = request.form['inputPhoneNumber']
+        inputPlan = request.form['inputPlan']
+        inputActiveStatus = (request.form.getlist(
+            'inputActiveStatus')) and 1 or 0
+        now = datetime.today().strftime('%Y-%m-%d')
+
+        target = '/static/img/'
+        filename = request.files['face_image']
+        inputAvatar = target + filename.filename
+        if inputAvatar == target:
+            inputAvatar = '/static/img/undraw_profile.svg'
+
+        insert_data = {
+            'name': inputName,
+            'id_client': 1234567,
+            'avatar': inputAvatar,
+            'email': inputEmail,
+            'password': inputPassword,
+            'phone': inputPhoneNumber,
+            'company': inputCompany,
+            'plan': inputPlan,
+            'active': inputActiveStatus,
+            'timestamp': now
+        }
+
+        mydb.merchants.insert_one(insert_data)
+        return redirect(url_for('manage_merchants'))
+
+    else:
+        return render_template('merchant_add.html', user_name=session['user_name'], role=session['role'], merchants=mydb.merchants.find())
+
+
+@app.route('/merchant_edit/<merchant_id>', methods=['GET', 'POST'])
+def merchant_edit(merchant_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        inputName = request.form['inputName']
+        inputEmail = request.form['inputEmail']
+        inputPassword = request.form['inputPassword']
+        inputCompany = request.form['inputCompany']
+        inputPhoneNumber = request.form['inputPhoneNumber']
+        inputPlan = request.form['inputPlan']
+        inputActiveStatus = (request.form.getlist(
+            'inputActiveStatus')) and 1 or 0
+        now = datetime.today().strftime('%Y-%m-%d')
+
+        find_by_id = api.get_merchant_info(merchant_id)
+        target = '/static/img/'
+        filename = request.files['face_image']
+        inputAvatar = target + filename.filename
+        if inputAvatar == target:
+            inputAvatar = find_by_id.get('avatar')
+
+        myquery = {"_id": ObjectId(merchant_id)}
+        newvalues = {"$set": {'name': inputName,
+                              'avatar': inputAvatar,
+                              'email': inputEmail,
+                              'password': inputPassword,
+                              'phone': inputPhoneNumber,
+                              'company': inputCompany,
+                              'plan': inputPlan,
+                              'active': inputActiveStatus,
+                              'timestamp': now}}
+
+        mydb.merchants.update_one(myquery, newvalues)
+
+        return redirect(url_for('manage_merchants'))
+
+    else:
+        find_by_id = api.get_merchant_info(merchant_id)
+        return render_template('merchant_edit.html', user_name=session['user_name'], role=session['role'], merchant=find_by_id)
+
+
+@app.route('/merchant_delete/<merchant_id>', methods=['GET'])
+def merchant_delete(merchant_id):
+    if not g.user:
+        return redirect(url_for('login'))
+
+    find_by_id = api.get_merchant_info(merchant_id)
+    return render_template('merchant_delete.html', user_name=session['user_name'], role=session['role'], merchant=find_by_id)
+
+
+@app.route('/remove_merchant/<merchant_id>', methods=['GET'])
+def remove_merchant(merchant_id):
+    find_by_id = api.get_merchant_info(merchant_id)
+    mydb.merchants.delete_one({'_id': ObjectId(merchant_id)})
+    return redirect(url_for('manage_merchants'))
 
 # SERVICE
 
@@ -274,7 +384,7 @@ def service_delete(service_id):
 
 @app.route('/remove_service/<service_id>', methods=['GET'])
 def remove_service(service_id):
-    find_user = api.get_service_info(service_id)
+    find_by_id = api.get_service_info(service_id)
     mydb.services.delete_one({'_id': ObjectId(service_id)})
     return redirect(url_for('manage_services'))
 
@@ -326,12 +436,12 @@ def voiceid_edit(voiceid_id):
         inputTags = request.form['inputTags']
         now = datetime.today().strftime('%Y-%m-%d')
 
-        find_user = api.get_voiceid_info(voiceid_id)
+        find_by_id = api.get_voiceid_info(voiceid_id)
         target = '/static/img/'
         filename = request.files['face_image']
         inputAvatar = target + filename.filename
         if inputAvatar == target:
-            inputAvatar = find_user.get('avatar')
+            inputAvatar = find_by_id.get('avatar')
 
         myquery = {"_id": ObjectId(voiceid_id)}
         newvalues = {"$set": {'name': inputName,
@@ -349,8 +459,8 @@ def voiceid_edit(voiceid_id):
         return redirect(url_for('manage_voiceids'))
 
     else:
-        find_user = api.get_voiceid_info(voiceid_id)
-        return render_template('voiceid_edit.html', user_name=session['user_name'], role=session['role'], voiceid=find_user)
+        find_by_id = api.get_voiceid_info(voiceid_id)
+        return render_template('voiceid_edit.html', user_name=session['user_name'], role=session['role'], voiceid=find_by_id)
 
 
 @app.route('/voiceid_delete/<voiceid_id>', methods=['GET'])
@@ -358,13 +468,13 @@ def voiceid_delete(voiceid_id):
     if not g.user:
         return redirect(url_for('login'))
 
-    find_voiceid = api.get_voiceid_info(voiceid_id)
-    return render_template('voiceid_delete.html', user_name=session['user_name'], role=session['role'], voiceid=find_voiceid)
+    find_by_id = api.get_voiceid_info(voiceid_id)
+    return render_template('voiceid_delete.html', user_name=session['user_name'], role=session['role'], voiceid=find_by_id)
 
 
 @app.route('/remove_voiceid/<voiceid_id>', methods=['GET'])
 def remove_voiceid(voiceid_id):
-    find_user = api.get_voiceid_info(voiceid_id)
+    find_by_id = api.get_voiceid_info(voiceid_id)
     mydb.voiceids.delete_one({'_id': ObjectId(voiceid_id)})
     return redirect(url_for('manage_voiceids'))
 

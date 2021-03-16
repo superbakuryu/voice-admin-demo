@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Quản lý nhân viên kinh doanh</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Danh sách nhân viên kinh doanh</h6>
+      <div class="my-2"></div>
+      <a href="merchant_add" class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fa fa-plus"></i>
+        </span>
+        <span class="text">Thêm mới</span>
+      </a>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>ID khách hàng</th>
+              <th>Ảnh đại diện</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Công ty</th>
+              <th>Kế hoạch</th>
+              <th>Trạng thái kích hoạt</th>
+              <th>Tạo lúc</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Tên</th>
+              <th>ID khách hàng</th>
+              <th>Ảnh đại diện</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Công ty</th>
+              <th>Kế hoạch</th>
+              <th>Trạng thái kích hoạt</th>
+              <th>Tạo lúc</th>
+              <th>Thao tác</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for merchant in merchants %}
+            <tr>
+              <td><a href="merchant_edit_{{ merchant._id }}">{{ merchant._id|shorten_id }}</a></td>
+              <td><a href="">{{ merchant.name }}</a></td>
+              <td><a href="">{{ merchant.id_client }}</a></td>
+              <td>
+                <center><img src="{{ merchant.avatar }}" width="60px"></center>
+              </td>
+              <td>{{ merchant.email }}</td>
+              <td>{{ merchant.phone }}</td>
+              <td>{{ merchant.company }}</td>
+              <td>{{ merchant.plan }}</td>
+              <td>
+                {% if merchant.active == 1 %}
+                <center>
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round"></span>
+                  </label>
+                </center>
+                {% else %}
+                <center>
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                </center>
+                {% endif %}
+
+              </td>
+              <td>{{ merchant.timestamp }}</td>
+              <td>
+                <a href="merchant_edit/{{ merchant._id }}">Sửa</a> |
+                <a href="merchant_delete/{{ merchant._id }}">Xoá</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

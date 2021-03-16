@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Quản lý nhân viên kinh doanh</h1>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Thêm nhân viên kinh doanh</h6>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/merchant_add" enctype="multipart/form-data"
+        oninput='inputPassword2.setCustomValidity(inputPassword2.value != inputPassword.value ? "Mật khẩu nhập lại không đúng." : "")'>
+        <link rel="stylesheet" href="/static/css/custom.css">
+        <div class="form-group row">
+          <div class="avatar-wrapper">
+            <img class="profile-pic" src="/static/img/undraw_profile.svg" />
+            <div class="upload-button">
+              <i class="fa fa-arrow-circle-up" title="Chọn ảnh" aria-hidden="true"></i>
+            </div>
+            <input class="file-upload" type="file" name="face_image" accept="image/*" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputName" class="col-sm-2 col-form-label">Họ tên (<font color="red">*</font>bắt
+            buộc)</label>
+          <div class="col-sm-10">
+            <input type="text" name="inputName" class="form-control" id="inputName" placeholder="Nhập họ tên ..."
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputEmail" class="col-sm-2 col-form-label">Email(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="email" name="inputEmail" class="form-control" id="inputEmail" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-form-label">Password(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="password" name="inputPassword" class="form-control" name="inputPassword" id="inputPassword"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPassword2" class="col-sm-2 col-form-label">Nhập lại password(<font color="red">*
+            </font>)</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" name="inputPassword2" id="inputPassword2" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputCompany" class="col-sm-2 col-form-label">Công ty(<font color="red">* </font>)</label>
+          <div class="col-sm-10">
+            <input type="text" name="inputCompany" class="form-control" id="inputCompany" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPhoneNumber" class="col-sm-2 col-form-label">Số điện thoại(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="number" name="inputPhoneNumber" class="form-control" id="inputPhoneNumber" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputPlan" class="col-sm-2 col-form-label">Kế hoạch(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <input type="text" name="inputPlan" class="form-control" id="inputPlan" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="inputActiveStatus" class="col-sm-2 col-form-label">Trạng thái hoạt động(<font color="red">*</font>
+            )</label>
+          <div class="col-sm-10">
+            <label class="switch">
+              <input type="checkbox" name="inputActiveStatus" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type="submit" id="addBtn" class="btn btn-primary">Thêm</button>
+            <a href="/manage_merchants" class="btn btn-secondary btn-icon-split">
+              <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+              </span>
+              <span class="text">Quay lại</span>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+  bootstrapValidate('#inputEmail', 'email:Email không hợp lệ')
+  bootstrapValidate('#inputPhoneNumber', 'min:8:Tối thiểu 8 kí tự');
+</script>
+{% endblock %}

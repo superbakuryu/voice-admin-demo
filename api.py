@@ -10,6 +10,12 @@ def get_client_info(client_id):
   
   return mydb.clients.find_one({'_id': client_id})
 
+def get_merchant_info(merchant_id):
+  if not isinstance(merchant_id, ObjectId):
+    merchant_id = ObjectId(merchant_id)
+  
+  return mydb.merchants.find_one({'_id': merchant_id})
+
 def get_service_info(service_id):
   if not isinstance(service_id, ObjectId):
     service_id = ObjectId(service_id)

@@ -4,21 +4,21 @@
 <div class="container-fluid">
 
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Quản lý Voice ID</h1>
+  <h1 class="h3 mb-2 text-gray-800">Quản lý khách hàng</h1>
 
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Xoá Voice ID</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Xoá khách hàng</h6>
     </div>
     <div class="card-body">
       <dl class="dl-horizontal">
-        <center><img src="{{ voiceid.avatar }}" width="100px"></center>
+        <center><img src="{{ merchant.avatar }}" width="100px"></center>
         <dt>
           Tên:
         </dt>
         <dd>
-          {{ voiceid.name }}
+          {{ merchant.name }}
         </dd>
 
         <dt>
@@ -26,7 +26,7 @@
         </dt>
 
         <dd>
-          {{ voiceid.email }}
+          {{ merchant.email }}
         </dd>
 
         <dt>
@@ -34,34 +34,34 @@
         </dt>
 
         <dd>
-          {{ voiceid.phone }}
+          {{ merchant.phone }}
         </dd>
         <dt>
           Công ty:
         </dt>
 
         <dd>
-          {{ voiceid.company }}
+          {{ merchant.company }}
         </dd>
         <dt>
           Kế hoạch:
         </dt>
 
         <dd>
-          {{ voiceid.plan }}
+          {{ merchant.plan }}
         </dd>
         <dt>
           Tạo lúc:
         </dt>
 
         <dd>
-          {{ voiceid.timestamp }}
+          {{ merchant.timestamp }}
         </dd>
       </dl>
 
       <h3>Bạn có chắc chắn muốn xoá ?</h3>
 
-      <a href="/remove_voiceid/{{ voiceid._id }}" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+      <a href="/remove_merchant/{{ merchant._id }}" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
         <span class="icon text-white-50">
           <i class="fas fa-trash"></i>
         </span>
@@ -69,7 +69,7 @@
       </a>
 
 
-      <a href="/manage_voiceids" class="btn btn-secondary btn-icon-split">
+      <a href="/manage_merchants" class="btn btn-secondary btn-icon-split">
         <span class="icon text-white-50">
           <i class="fas fa-arrow-left"></i>
         </span>
@@ -90,10 +90,10 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Chọn "Đồng ý" bên dưới nếu bạn chắc chắn muốn xoá người dùng.</div>
+        <div class="modal-body">Chọn "Đồng ý" bên dưới nếu bạn chắc chắn muốn xoá nhân viên kinh doanh.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Huỷ bỏ</button>
-          <a class="btn btn-primary" href="/remove_voiceid/{{ voiceid._id }}">Đồng ý</a>
+          <a class="btn btn-primary" href="/remove_merchant/{{ merchant._id }}">Đồng ý</a>
         </div>
       </div>
     </div>
