@@ -52,7 +52,7 @@
           <tbody>
             {% for client in clients %}
             <tr>
-              <td><a href="client_edit_{{ client._id }}">{{ client._id|shorten_id }}</a></td>
+              <td><a href="client_edit/{{ client._id }}">{{ client._id|shorten_id }}</a></td>
               <td><a href="">{{ client.name }}</a></td>
               <td>
                 <center><img src="{{ client.avatar }}" width="60px"></center>

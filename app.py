@@ -225,6 +225,7 @@ def merchant_add():
         inputPlan = request.form['inputPlan']
         inputActiveStatus = (request.form.getlist(
             'inputActiveStatus')) and 1 or 0
+        inputAPIKey = request.form['inputAPIKey']
         now = datetime.today().strftime('%Y-%m-%d')
 
         target = '/static/img/'
@@ -235,7 +236,6 @@ def merchant_add():
 
         insert_data = {
             'name': inputName,
-            'id_client': 1234567,
             'avatar': inputAvatar,
             'email': inputEmail,
             'password': inputPassword,
@@ -243,9 +243,9 @@ def merchant_add():
             'company': inputCompany,
             'plan': inputPlan,
             'active': inputActiveStatus,
+            'api_key': inputAPIKey,
             'timestamp': now
         }
-
         mydb.merchants.insert_one(insert_data)
         return redirect(url_for('manage_merchants'))
 
@@ -267,6 +267,7 @@ def merchant_edit(merchant_id):
         inputPlan = request.form['inputPlan']
         inputActiveStatus = (request.form.getlist(
             'inputActiveStatus')) and 1 or 0
+        inputAPIKey = request.form['inputAPIKey']
         now = datetime.today().strftime('%Y-%m-%d')
 
         find_by_id = api.get_merchant_info(merchant_id)
@@ -285,6 +286,7 @@ def merchant_edit(merchant_id):
                               'company': inputCompany,
                               'plan': inputPlan,
                               'active': inputActiveStatus,
+                              'api_key': inputAPIKey,
                               'timestamp': now}}
 
         mydb.merchants.update_one(myquery, newvalues)

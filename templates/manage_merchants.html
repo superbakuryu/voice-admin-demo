@@ -25,7 +25,6 @@
             <tr>
               <th>ID</th>
               <th>Tên</th>
-              <th>ID khách hàng</th>
               <th>Ảnh đại diện</th>
               <th>Email</th>
               <th>Phone</th>
@@ -40,7 +39,6 @@
             <tr>
               <th>ID</th>
               <th>Tên</th>
-              <th>ID khách hàng</th>
               <th>Ảnh đại diện</th>
               <th>Email</th>
               <th>Phone</th>
@@ -54,9 +52,8 @@
           <tbody>
             {% for merchant in merchants %}
             <tr>
-              <td><a href="merchant_edit_{{ merchant._id }}">{{ merchant._id|shorten_id }}</a></td>
-              <td><a href="">{{ merchant.name }}</a></td>
-              <td><a href="">{{ merchant.id_client }}</a></td>
+              <td><a href="merchant_edit/{{ merchant._id }}">{{ merchant._id|shorten_id }}</a></td>
+              <td><a href="merchant_edit/{{ merchant._id }}">{{ merchant.name }}</a></td>
               <td>
                 <center><img src="{{ merchant.avatar }}" width="60px"></center>
               </td>

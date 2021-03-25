@@ -92,6 +92,13 @@
         </div>
 
         <div class="form-group row">
+          <label for="inputAPIKey" id="keygen" class="col-sm-2 col-form-label" style="color: red; cursor: pointer;">Tạo key</label>
+          <div class="col-sm-10">
+            <input type="text" name="inputAPIKey" class="form-control" id="inputAPIKey" placeholder="Nhấn nút Tạo key">
+          </div>
+        </div>
+
+        <div class="form-group row">
           <div class="col-sm-10">
             <button type="submit" id="addBtn" class="btn btn-primary">Thêm</button>
             <a href="/manage_merchants" class="btn btn-secondary btn-icon-split">
@@ -114,5 +121,26 @@
 <script>
   bootstrapValidate('#inputEmail', 'email:Email không hợp lệ')
   bootstrapValidate('#inputPhoneNumber', 'min:8:Tối thiểu 8 kí tự');
+</script>
+<script>
+  function generateUUID() {
+    var d = new Date().getTime();
+    if (window.performance && typeof window.performance.now === "function") {
+      d += performance.now();
+    }
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (d + Math.random() * 16) % 16 | 0;
+      d = Math.floor(d / 16);
+      return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+  }
+
+  /**
+   * Generate new key and insert into input value
+   */
+  $('#keygen').on('click', function () {
+    $('#inputAPIKey').val(generateUUID());
+  });
 </script>
 {% endblock %}
