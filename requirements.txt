@@ -5,6 +5,7 @@ Flask-SQLAlchemy==2.4.4
 itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
+passlib==1.7.4
 py3dns==3.2.1
 pycodestyle==2.6.0
 pymongo==3.11.3
